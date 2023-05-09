@@ -1,0 +1,14 @@
+{
+  "name": "projeto-es-2023-01-auth",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "scripts": {
+    "test": "node main.js"
+  }
+}
