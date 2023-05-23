@@ -1,0 +1,13 @@
+/* format: --{state?}-{text/bg/border/shadow}-{color?/font?}-{element}-{primary/secondary/tertiary/?} */
+
+:root {
+  --bg-color-primary: #0e0e10;
+
+  --text-color: #fbfbfb;
+  --text-color-muted: #adadad;
+
+  --bg-color-topbar-primary: #18181b;
+
+  --bg-color-sidebar-primary: #1f1f23;
+  --bg-color-sidebar-secondary: #2a2a2d;
+}

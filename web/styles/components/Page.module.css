@@ -1,0 +1,121 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page .main {
+  margin-top: 60px;
+  display: flex;
+  flex: 1;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  position: fixed;
+}
+
+.nav, .nav .menu {
+  height: 60px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--bg-color-topbar-primary);
+}
+
+.menu .brand, .menu .options {
+  width: 240px;
+}
+
+.manu .content {
+  flex: 1;
+}
+
+.menu .brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-left: 10px;
+}
+
+.menu .brand > div {
+  height: 30px;
+}
+
+.menu .brand img {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.sidebar {
+  background-color: var(--bg-color-sidebar-primary);
+}
+
+.sidebar, .sidebar .content {
+  width: 240px;
+}
+
+.sidebar .content {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .stream {
+  display: flex;
+  padding: 10px;
+}
+
+.sidebar .stream .image {
+  width: 40px;
+  height: 40px;
+}
+
+.sidebar .stream .image img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar .info {
+  padding: 0px 10px;
+  flex: 1;
+}
+
+.sidebar .viewers .icon {
+  width: 8px;
+  height: 8px;
+  background-color: #eb0400;
+  border-radius: 50%;
+}
+
+.sidebar .viewers > div {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.sidebar .tag, .sidebar .count {
+  color: var(--text-color-muted);
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+.siderbar .stream {
+  transition: .2s all;
+}
+
+.sidebar .stream:hover {
+  background-color: var(--bg-color-sidebar-secondary);
+}
+
+.sidebar .separator {
+  padding: 10px;
+  font-weight: 600;
+  font-size: .9rem;
+}
