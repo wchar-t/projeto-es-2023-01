@@ -53,13 +53,14 @@
 
 .sidebar {
   background-color: var(--bg-color-sidebar-primary);
+  flex-shrink: 0;
 }
 
-.sidebar, .sidebar .content {
+.sidebar, .sidebar-content {
   width: 240px;
 }
 
-.sidebar .content {
+.sidebar-content {
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -118,4 +119,10 @@
   padding: 10px;
   font-weight: 600;
   font-size: .9rem;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }

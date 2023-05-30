@@ -10,7 +10,7 @@ export default function TopBar() {
           </div>
           PatriotasTV
         </div>
-        <div className={styles.content}>
+        <div className={styles['menu-content']}>
         
         </div>
         <div className={styles.options}>
