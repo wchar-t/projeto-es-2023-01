@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import styles from '@/styles/components/Page.module.css';
 
 export default function TopBar() {
@@ -11,7 +12,10 @@ export default function TopBar() {
           PatriotasTV
         </div>
         <div className={styles['menu-content']}>
-          
+          <div className={styles['search-wrapper']}>
+            <input type="text" placeholder="Buscar" />
+            <button type="button"><Icon name="magnifying-glass" /></button>
+          </div>
         </div>
         <div className={styles.options}>
           
