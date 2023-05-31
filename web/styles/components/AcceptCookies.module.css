@@ -1,0 +1,47 @@
+.wrapper {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    max-width: 420px;
+    bottom: 15px;
+    right: 15px;
+    padding: 25px;
+    background-color: var(--bg-color-sidebar-secondary);
+    border-radius: 5px;
+    gap: 25px;
+  }
+  
+  .wrapper .icon {
+    font-size: 4rem;
+  }
+  
+  .wrapper .info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .wrapper .actions {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+  }
+  
+  .wrapper button {
+    flex-grow: 1;
+    padding: 15px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .wrapper .accept {
+    background: var(--green--100);
+    color: var(--text-color);
+  }
+  
+  .wrapper .decline {
+    background-color: transparent;
+    color: var(--text-color);
+  }

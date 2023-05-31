@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import TopBar from './TopBar';
 import SideBar from './SideBar';
 import styles from '@/styles/components/Page.module.css';
+import AcceptCookies from '../AcceptCookies';
 
 export default function Page({ padding = 30, children }: {
   padding?: number,
@@ -16,6 +17,7 @@ export default function Page({ padding = 30, children }: {
           {children}
         </div>
       </div>
+      <AcceptCookies />
     </div>
   );
 }

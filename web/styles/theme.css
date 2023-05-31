@@ -1,4 +1,5 @@
 /* format: --{state?}-{text/bg/border/shadow}-{color?/font?}-{element}-{primary/secondary/tertiary/?} */
+/* format for colors: --{color}--{level} */
 
 :root {
   --bg-color-primary: #0e0e10;
@@ -10,7 +11,9 @@
 
   --bg-color-sidebar-primary: #1f1f23;
   --bg-color-sidebar-secondary: #2a2a2d;
-  
+
+  --green--100: #009b3a;
+
   --primary-50: #FAF5FF;
   --primary-100: #E9D8FD;
   --primary-200: #D6BCFA;
