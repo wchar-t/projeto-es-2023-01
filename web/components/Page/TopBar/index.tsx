@@ -11,11 +11,11 @@ export default function TopBar() {
           PatriotasTV
         </div>
         <div className={styles['menu-content']}>
-        
+          
         </div>
         <div className={styles.options}>
-        
-      </div>
+          
+        </div>
       </div>
     </nav>
   );
