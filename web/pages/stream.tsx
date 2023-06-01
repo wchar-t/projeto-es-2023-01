@@ -24,8 +24,7 @@ export default function Stream() {
 
             <div className={styles.stream__info}>
               <img
-                src="https://doodleipsum.com/70x70/avatar-2?i=bf6687f12ea1b025bb325dac36a69402"
-                // className="w-18 object-cover h-18 rounded-full border-2 border-cyan-500"
+                src="https://static-cdn.jtvnw.net/jtv_user_pictures/e7224153-007a-4606-9c1b-46ad395e3000-profile_image-70x70.png"
                 className={styles.stream__info_avatar}
               />
               <div className={styles.stream__info_description}>
@@ -34,13 +33,13 @@ export default function Stream() {
                 </h1>
                 <h2>🛠️ Construindo uma aplicação em nextJs</h2>
                 <ul className="flex gap-2 text-xs font-normal">
-                  <li className="py-1 px-2 rounded-full bg-cyan-50">
+                  <li>
                     Programação
                   </li>
-                  <li className="py-1 px-2 rounded-full bg-cyan-50">
+                  <li>
                     Javascript
                   </li>
-                  <li className="py-1 px-2 rounded-full bg-cyan-50">NextJs</li>
+                  <li>NextJs</li>
                 </ul>
               </div>
             </div>
