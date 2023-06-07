@@ -27,6 +27,7 @@
         "react/react-in-jsx-scope": "off",
         "jsx-a11y/alt-text": "off",
         "react/require-default-props": "off",
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "jsx-a11y/control-has-associated-label": "off"
     }
 }

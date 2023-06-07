@@ -167,3 +167,11 @@
   outline: 0;
   border-radius: 0px 5px 5px 0px;
 }
+
+.options {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  padding-right: 15px;
+}
