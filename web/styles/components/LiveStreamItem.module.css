@@ -55,6 +55,7 @@
   background-color: rgb(235, 4, 0);
   font-size: .8rem;
   border-radius: 5px;
+  color: var(--text-color);
 }
 
 .info {
