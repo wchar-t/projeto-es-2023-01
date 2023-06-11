@@ -28,6 +28,7 @@
         "jsx-a11y/alt-text": "off",
         "react/require-default-props": "off",
         "react/jsx-one-expression-per-line": "off",
-        "jsx-a11y/control-has-associated-label": "off"
+        "jsx-a11y/control-has-associated-label": "off",
+        "jsx-a11y/label-has-associated-control": "off"
     }
 }

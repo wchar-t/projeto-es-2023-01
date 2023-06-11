@@ -23,7 +23,6 @@ export default function LiveStreamItem({
 
   useEffect(() => {
     setColor(Math.floor(Math.random() * 0xffffff).toString(16));
-    console.log(color)
   }, []);
 
   return (
