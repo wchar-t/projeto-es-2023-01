@@ -10,10 +10,14 @@ dotenv.config();
 
 app.post('/api/register', async (req, res) => {
     const { username, password } = req.body;
+
+   // done in the main project for now
 });
 
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
+
+    // done in the main project for now
 });
 
 app.get('/api/verify/:jwt', async (req, res) => {
