@@ -14,8 +14,8 @@ import styles from '@/styles/components/Page.module.css';
 import LoginRegisterModal from '@/components/LoginRegisterModal';
 
 export default function TopBar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalMode, setModalMode] = useState<'login' | 'register'>('login');
+  const { isOpen: isOpenLogin, onOpen: onOpenLogin, onClose: onCloseLogin } = useDisclosure();
+  const { isOpen: isOpenReg, onOpen: onOpenReg, onClose: onCloseReg } = useDisclosure();
   // todo1: with lib's local session, get name and set the dropdown text
   // todo2: fix register button. it's not setting the mode to register
   const isLoggedIn = 0;
@@ -52,15 +52,16 @@ export default function TopBar() {
                 </Menu>
               ) : (
                 <>
-                  <Button type="button" colorScheme="green" size="sm" onClick={() => { setModalMode('login'); onOpen(); }}>Login</Button>
-                  <Button type="button" colorScheme="grey" size="sm" onClick={() => { setModalMode('register'); onOpen(); }}>Registro</Button>
+                  <Button type="button" colorScheme="green" size="sm" onClick={() => onOpenLogin()}>Login</Button>
+                  <Button type="button" colorScheme="grey" size="sm" onClick={() => onOpenReg()}>Registro</Button>
                 </>
               )
             }
           </div>
         </div>
       </nav>
-      <LoginRegisterModal isOpen={isOpen} onClose={onClose} mode={modalMode} />
+      <LoginRegisterModal isOpen={isOpenLogin} onClose={onCloseLogin} mode="login" />
+      <LoginRegisterModal isOpen={isOpenReg} onClose={onCloseReg} mode="register" />
     </>
   );
 }
