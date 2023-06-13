@@ -16,6 +16,7 @@
 .thumbnail img {
   width: 100%;
   aspect-ratio: 16/9;
+  background-color: var(--bg-color-primary);
 }
 
 .profile-picture {
@@ -104,6 +105,7 @@
   z-index: -1;
   aspect-ratio: 16/9;
   background-color: transparent;
+  z-index: 2;
 }
 
 .sc-transform-br, .sc-transform-tl {
@@ -112,15 +114,15 @@
   height: 0px;
   transform-origin: center bottom;
   transform: translateX(8px) scale(0);
-  z-index: -2;
   transition-property: transform;
   transition-timing-function: ease;
   transition-duration: 100ms;
+  z-index: 1;
 }
 
 .sc-transform-br {
   position: absolute;
-  bottom: 5px;
+  bottom: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 8px solid transparent; /* factor */
@@ -140,6 +142,7 @@
   transition-property: transform;
   transition-timing-function: ease;
   transition-duration: 100ms;
+  z-index: 3;
 }
 
 .thumbnail:hover .thumbnail-wrapper {
