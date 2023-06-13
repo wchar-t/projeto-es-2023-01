@@ -31,7 +31,7 @@ export default function LoginRegisterModal({ mode = 'login', isOpen, onClose }: 
     const email = emailRef.current?.value || '';
     const password = passwordRef.current?.value || '';
 
-    const { error, jwt } = modeState === 'login'
+    const { error, result } = modeState === 'login'
       ? await Api.login(username, password)
       : await Api.register(username, email, password);
 
@@ -40,7 +40,7 @@ export default function LoginRegisterModal({ mode = 'login', isOpen, onClose }: 
       return;
     }
 
-    window.localStorage.setItem('token', jwt);
+    window.localStorage.setItem('token', result.jwt);
     window.location.reload();
   }
 
@@ -60,7 +60,7 @@ export default function LoginRegisterModal({ mode = 'login', isOpen, onClose }: 
           {
             errorState
               ? (
-                <Alert status="error" marginBottom={15}>
+                <Alert status="error" marginBottom={15} borderRadius={5}>
                   <AlertIcon />
                   <AlertTitle>Erro</AlertTitle>
                   <AlertDescription>{ errorState }</AlertDescription>

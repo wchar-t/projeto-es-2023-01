@@ -1,5 +1,5 @@
 import LoginRegisterSuccess from '../interfaces/client/LoginRegisterSuccess';
-import Me from '../interfaces/shared/me';
+import Session from '../interfaces/shared/session';
 
 /* eslint-disable no-undef */
 export interface SuccessfulResponse<Data extends Record<string, any>> {
@@ -47,6 +47,8 @@ export const request = async <Data extends Record<string, any>>(
 };
 
 export default class Api {
+  static session: Session | null = null;
+
   static async login(
     username: string,
     password: string,
@@ -62,5 +64,16 @@ export default class Api {
     return request<LoginRegisterSuccess>('/api/register', {
       username, email, password,
     });
+  }
+
+  /* private routes */
+
+  static async getSession(): Promise<RequestResponse<Session>> {
+    return request<Session>('/api/@me');
+  }
+
+  static logout(): void {
+    window.localStorage.removeItem('token');
+    window.location.href = '/';
   }
 }

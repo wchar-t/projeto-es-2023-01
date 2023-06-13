@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import {
   Menu,
@@ -12,13 +11,13 @@ import {
 import Icon from '@/components/Icon';
 import styles from '@/styles/components/Page.module.css';
 import LoginRegisterModal from '@/components/LoginRegisterModal';
+import Api from '@/lib/api';
 
 export default function TopBar() {
   const { isOpen: isOpenLogin, onOpen: onOpenLogin, onClose: onCloseLogin } = useDisclosure();
   const { isOpen: isOpenReg, onOpen: onOpenReg, onClose: onCloseReg } = useDisclosure();
-  // todo1: with lib's local session, get name and set the dropdown text
-  // todo2: fix register button. it's not setting the mode to register
-  const isLoggedIn = 0;
+
+  const { session } = Api;
 
   return (
     <>
@@ -38,16 +37,23 @@ export default function TopBar() {
           </div>
           <div className={styles.options}>
             {
-              isLoggedIn ? (
+              session ? (
                 <Menu>
-                  <MenuButton as={Button} rightIcon={<Icon name="caret-down" />}>
-                    Usuário
+                  <MenuButton>
+                    <img src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5fa74-defa-11e9-809c-784f43822e80-profile_image-70x70.png" className={styles.avatar} />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem icon={<Icon name="user" />}><Link href="/profile">Perfil</Link></MenuItem>
+                    <div className={styles['dropdown-display-username']}>
+                      <img src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5fa74-defa-11e9-809c-784f43822e80-profile_image-70x70.png" className={styles.avatar} />
+                      <span>
+                        { session.username }
+                      </span>
+                    </div>
+                    <MenuDivider />
+                    <Link href={`/c/${session.username}`}><MenuItem icon={<Icon name="user" />}>Perfil</MenuItem></Link>
                     <MenuDivider />
                     <MenuItem icon={<Icon name="cog" />}><Link href="/settings">Configurações</Link></MenuItem>
-                    <MenuItem icon={<Icon name="arrow-right-from-bracket" />}><Link href="/logout">Logout</Link></MenuItem>
+                    <MenuItem icon={<Icon name="arrow-right-from-bracket" />} onClick={() => Api.logout()}>Logout</MenuItem>
                   </MenuList>
                 </Menu>
               ) : (
