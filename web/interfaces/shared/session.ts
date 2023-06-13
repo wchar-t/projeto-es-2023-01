@@ -3,5 +3,6 @@ export default interface Session {
   username: string,
   email: string,
   bio?: string | null,
+  picture: string,
   createdAt: Date,
 }

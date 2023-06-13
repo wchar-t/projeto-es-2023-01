@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import styles from '@/styles/components/LiveStreamItem.module.css';
 import { useEffect, useState } from 'react';
+import styles from '@/styles/components/LiveStreamItem.module.css';
+import StreamTag from '../StreamTag';
 
 interface LiveStreamItemOptions {
   title: string,
@@ -50,7 +51,7 @@ export default function LiveStreamItem({
           <div className={styles['stream-username']}><Link href={`/${username}`}>{username}</Link></div>
           <div className={styles['stream-tags']}>
             {tags.map((tag) => (
-              <Link key={tag} href={`/tags/${tag}`}>{tag}</Link>
+              <StreamTag key={tag} tag={tag} />
             ))}
           </div>
         </div>

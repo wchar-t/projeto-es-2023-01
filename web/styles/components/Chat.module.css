@@ -1,0 +1,4 @@
+.chat {
+  width: 340px;
+  background-color: var(--bg-color-chat-primary);
+}

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 
-import Chat from '@/components/Chat';
+import Chat from '@/components/Chat2';
 import Page from '@/components/Page';
 
 import styles from '../styles/Stream.module.css';

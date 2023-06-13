@@ -36,6 +36,7 @@ async function handler(req: PatriotasApiRequest, res: PatriotasApiResponse) {
     username: doc.username,
     email: doc.email,
     bio: doc.bio,
+    picture: doc.picture,
     createdAt: doc.createdAt,
   };
 

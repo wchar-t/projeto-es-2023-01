@@ -90,15 +90,6 @@
   margin-top: 5px;
 }
 
-.stream-tags a {
-  font-size: .8rem;
-  padding: 4px 10px;
-  background-color: #242429;
-  border-radius: 10px;
-  color: #e0e0e0bb;
-  font-weight: 600;
-}
-
 .sc-transform {
   width: 100%;
   position: absolute;
