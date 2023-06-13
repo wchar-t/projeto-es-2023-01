@@ -48,6 +48,7 @@ async function handler(req: PatriotasApiRequest, res: PatriotasApiResponse) {
       username,
       email,
       password,
+      picture: process.env.DEFAULT_USER_PICTURE as string,
     },
   });
 
@@ -56,6 +57,7 @@ async function handler(req: PatriotasApiRequest, res: PatriotasApiResponse) {
     username: doc.username,
     email: doc.email,
     bio: doc.bio,
+    picture: doc.picture,
     createdAt: doc.createdAt,
   };
 

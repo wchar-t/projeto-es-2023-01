@@ -15,6 +15,7 @@ model User {
   email     String    @unique
   password  String
   bio       String?
+  picture   String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   streams   Stream[]

@@ -17,3 +17,6 @@
   gap: 1rem;
 }
 
+.section-title a {
+  color: var(--green-100) !important;
+}
