@@ -1,29 +1,52 @@
 // import { UserPlus } from '@phosphor-icons/react';
 import Link from 'next/link';
 
+import { useRouter } from 'next/router';
 import Page from '@/components/Page';
+import StartLiveStreamModal from '@/components/StartliveStreamModal';
 
 export default function Perfil() {
+  const isStreaming = false
+
+  const router = useRouter()
+
+  const { username } = router.query
+
   return (
     <Page padding={0}>
-      <main className="flex flex-col items-start relative">
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          className="w-full aspect-video absolute "
-        />
-        <div className="bg-zinc-800 z-20 mx-12 my-24 px-8 py-12 rounded w-96">
-          <span className="bg-red-500 p-2 px-4 rounded font-bold text-slate-100">
-            Ao vivo
-          </span>
+      <main className={`flex h-full flex-col items-start relative ${!isStreaming ? 'bg-purple-600' : ''}`}>
+        {isStreaming ? (
+          <>
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="w-full aspect-video absolute "
+            />
+            <div className="bg-zinc-800 z-20 mx-12 my-24 px-8 py-12 rounded w-96">
+              <span className="bg-red-500 p-2 px-4 rounded font-bold text-slate-100">
+                Ao vivo
+              </span>
 
-          <p className="text-2xl mt-4 font-bold">
-            Confira esta transmissão de [NOME DA ULTIMA LIVE] realizada há 3 dias.
-          </p>
-        </div>
-        <div className="bg-zinc-900 w-full z-20">
+              <p className="text-2xl mt-4 font-bold">
+                Confira esta transmissão de [NOME DA ULTIMA LIVE] realizada há 3 dias.
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className="bg-zinc-800 z-20 mx-12 my-24 px-8 py-12 rounded w-96">
+            <span className="bg-gray-100 p-2 px-4 rounded font-bold text-zinc-800 text-sm">
+              Offline
+            </span>
+
+            <p className="text-2xl mt-4 font-bold">
+              {username} está offline.
+            </p>
+          </div>
+        )}
+
+        <div className="bg-zinc-900 w-full h-full z-20">
           <div className="px-24 py-16">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -41,10 +64,12 @@ export default function Perfil() {
                   </div>
                 </div>
               </div>
-              <button title="Seguir luisss" type="button" className="rounded bg-purple-600 text-white px-6 py-2 font-semibold flex gap-2 cursor-pointer">
-                {/* <UserPlus size={24} weight="bold" /> */}
-                Seguir
-              </button>
+              <div className="flex gap-4">
+                <button title="Seguir luisss" type="button" className="rounded bg-purple-600 text-white px-6 py-2 font-semibold flex gap-2 cursor-pointer">
+                  Seguir
+                </button>
+                <StartLiveStreamModal />
+              </div>
             </div>
             <div>
               <h2 className="mt-8 my-4 font-bold">Clips</h2>
