@@ -31,7 +31,13 @@ async function handler(req: PatriotasApiRequest, res: PatriotasApiResponse) {
     return res.status(400).json({ error: { code: 'invalid_password', message: 'Senha inválida' } });
   }
 
-  const session: Session = doc;
+  const session: Session = {
+    id: doc.id,
+    username: doc.username,
+    email: doc.email,
+    bio: doc.bio,
+    createdAt: doc.createdAt,
+  };
 
   const jwt = encryptJwt(session);
 
