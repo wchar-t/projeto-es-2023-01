@@ -15,6 +15,7 @@
   width: 100%;
   position: fixed;
   z-index: 999999;
+  box-shadow: 0px 1px 5px #00000078;
 }
 
 .nav, .nav .menu {
