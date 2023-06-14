@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from '@/styles/components/LiveStreamItem.module.css';
 import StreamTag from '../StreamTag';
+import { simplifyNumber } from '@/lib/utils';
 
 interface LiveStreamItemOptions {
   title: string,
+  name: string,
   username: string,
   profilePicture: string,
   viewers: number,
@@ -14,6 +16,7 @@ interface LiveStreamItemOptions {
 
 export default function LiveStreamItem({
   title,
+  name,
   username,
   profilePicture,
   viewers,
@@ -37,18 +40,18 @@ export default function LiveStreamItem({
           <div className={styles.live}>AO VIVO</div>
           <div className={styles.viewers}>
             <div>
-              {viewers} espectadores
+              {simplifyNumber(viewers)} espectadores
             </div>
           </div>
         </div>
       </div>
       <div className={styles.info}>
         <div className={styles['profile-picture']}>
-          <img src={profilePicture} alt={username} />
+          <img src={profilePicture} alt={name} />
         </div>
         <div className={styles['stream-info']}>
-          <div className={styles['stream-title']}><Link href={`/${username}`}>{title}</Link></div>
-          <div className={styles['stream-username']}><Link href={`/${username}`}>{username}</Link></div>
+          <div className={styles['stream-title']}><Link href={`/c/${username}`}>{title}</Link></div>
+          <div className={styles['stream-username']}><Link href={`/c/${username}`}>{name}</Link></div>
           <div className={styles['stream-tags']}>
             {tags.map((tag) => (
               <StreamTag key={tag} tag={tag} />

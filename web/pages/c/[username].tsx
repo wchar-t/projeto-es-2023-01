@@ -6,10 +6,19 @@ import styles from '@/styles/Channel.module.css';
 import Api from '@/lib/api';
 import Link from 'next/link';
 import StreamTag from '@/components/StreamTag';
+import Twitch from '@/lib/twitch';
 
 declare const jwplayer: any;
+declare const window: any; // rm after demo
 
-export default function Channel() {
+export default function Channel({
+  streams, // rm after demo
+  stream, // rm after demo
+}: {
+  streams: object[], // rm after demo
+  stream: string, // rm after demo
+}) {
+  window.recommended = streams; // rm after demo
   const router = useRouter();
   const videoRef = useRef<HTMLDivElement>(null);
   const { username } = router.query;
@@ -25,7 +34,7 @@ export default function Channel() {
 
   useEffect(() => {
     jwplayer(videoRef.current).setup({
-      file: url,
+      file: stream || url, // rm after demo
       width: '100%',
       height: '100%',
       aspectratio: '16:9',
@@ -70,4 +79,27 @@ export default function Channel() {
       </div>
     </Page>
   )
+}
+
+// rm after demo
+export async function getServerSideProps(ctx: any) {
+  const { username } = ctx.query;
+  const res = await Twitch.fetch({ operations: ['PersonalSections'] });
+  const resStream = await Twitch.getStream(username);
+  const props = { streams: [], stream: '' };
+
+  try {
+    props.streams = res[0].data.personalSections[0].items;
+  } catch (x) {
+    // nothing
+  }
+
+  try {
+    const { value, signature } = resStream.streamPlaybackAccessToken;
+    props.stream = `https://usher.ttvnw.net/api/channel/hls/${username}.m3u8?token=${value}&sig=${signature}&supported_codecs=avc1`;
+  } catch (x) {
+    // nothing
+  }
+
+  return { props };
 }

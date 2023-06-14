@@ -1,18 +1,20 @@
 import Link from 'next/link';
 import styles from '@/styles/components/Page.module.css';
+import { simplifyNumber } from '@/lib/utils';
 
 interface SideBarStreamerOptions {
   name: string,
+  username: string,
   image: string,
   viewers: number,
   tag: string,
 }
 
 export default function SideBarStreamer({
-  name, image, viewers, tag,
+  name, username, image, viewers, tag,
 }: SideBarStreamerOptions) {
   return (
-    <Link href={`/${name}`} className={styles.stream}>
+    <Link href={`/c/${username}`} className={styles.stream}>
       <div className={styles.image}>
         <img src={image} />
       </div>
@@ -28,7 +30,7 @@ export default function SideBarStreamer({
         <div>
           <div className={styles.icon}> </div>
           <div className={styles.count}>
-            {viewers}
+            {simplifyNumber(viewers)}
           </div>
         </div>
       </div>
