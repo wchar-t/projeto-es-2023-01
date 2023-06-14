@@ -1,0 +1,20 @@
+{
+  "name": "fuse-chat-ts",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
+    "ws": "^8.13.0"
+  },
+  "scripts": {
+    "dev": "ts-node --esm app.ts",
+    "start": "ts-node --esm app.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.13",
+    "@types/ws": "^8.5.4"
+  }
+}

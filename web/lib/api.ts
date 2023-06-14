@@ -16,9 +16,9 @@ export interface ErrorResponse {
 }
 
 // generic response. used for routes that don't return anything
-interface Ok {
-  [key: string]: unknown,
-}
+// interface Ok {
+//   [key: string]: unknown,
+// }
 
 type RequestResponse<Data extends Record<string, any>> =
   | SuccessfulResponse<Data>
@@ -70,6 +70,10 @@ export default class Api {
 
   static async getSession(): Promise<RequestResponse<Session>> {
     return request<Session>('/api/@me');
+  }
+
+  static getToken(): string | null {
+    return window.localStorage.getItem('token');
   }
 
   static logout(): void {

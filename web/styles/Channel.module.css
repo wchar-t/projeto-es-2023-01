@@ -69,3 +69,22 @@
   flex-wrap: wrap;
   margin-top: 5px;
 }
+
+.bio-wrapper {
+  padding: 64px;
+  width: 100%;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  background-color: var(--bg-color-bio-primary);
+  padding: 48px;
+  border-radius: 5px;
+}
+
+.bio h3 {
+  font-size: 2rem;
+}

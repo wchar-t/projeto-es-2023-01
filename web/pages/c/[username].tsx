@@ -18,6 +18,8 @@ export default function Channel() {
   // todo: stream and tags from db
   const title = 'STREAM ACONTECENDO! DB!!!!'; // from db
   const tags = ['Esports', 'VCT', 'English', 'Game']; // from db
+  const { picture } = me; // from db
+  const { bio } = me; // from db
 
   const url = 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_5MB.mp4';
 
@@ -40,7 +42,7 @@ export default function Channel() {
           </div>
           <div className={styles.details}>
             <div className={styles.thumbnail}>
-              <img src={me.picture} />
+              <img src={picture} />
               <span className={styles.live}>AO VIVO</span>
             </div>
             <div className={styles.info}>
@@ -55,6 +57,12 @@ export default function Channel() {
                   <StreamTag key={tag} tag={tag} />
                 ))}
               </div>
+            </div>
+          </div>
+          <div className={styles['bio-wrapper']}>
+            <div className={styles.bio}>
+              <h3>Sobre {username}</h3>
+              {bio || 'Vish... parece que o streamer não tem uma bio ainda'}
             </div>
           </div>
         </div>
