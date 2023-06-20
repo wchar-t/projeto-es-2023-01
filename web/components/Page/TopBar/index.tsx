@@ -23,12 +23,12 @@ export default function TopBar() {
     <>
       <nav className={styles.nav}>
         <div className={styles.menu}>
-          <div className={styles.brand}>
+          <Link href={'/'} className={styles.brand}>
             <div className={styles.logo}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" />
             </div>
             PatriotasTV
-          </div>
+          </Link>
           <div className={styles['menu-content']}>
             <div className={styles['search-wrapper']}>
               <input type="text" placeholder="Buscar" />

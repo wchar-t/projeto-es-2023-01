@@ -12,7 +12,7 @@ export default function SideBarStreamer({
   name, image, viewers, tag,
 }: SideBarStreamerOptions) {
   return (
-    <Link href={`/${name}`} className={styles.stream}>
+    <Link href={`/perfil/${name}`} className={styles.stream}>
       <div className={styles.image}>
         <img src={image} />
       </div>
