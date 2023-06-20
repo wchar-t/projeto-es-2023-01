@@ -3,13 +3,69 @@ import Link from 'next/link';
 
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
-import Image from 'next/image';
+
 import Page from '@/components/Page';
 import StartLiveStreamModal from '@/components/StartliveStreamModal';
 import useStream from '@/hooks/useStream';
 
-import imageExample from '../../public/example.webp'
-
+const USERS = [
+  {
+    username: 'SicK_TV',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/5c4cd414-101a-422c-ad1b-11d2d9b31246-profile_image-70x70.png',
+    videos: [
+      {
+        link: 'https://youtube.com/embed/knrK2WqCNCU',
+        title: 'THIS is the SECRET to my Insane Aim?',
+      },
+      {
+        link: 'https://www.youtube.com/embed/oi_U5eXmNNw',
+        title: 'I FOUND MY *NEW* BEST FRIEND IN A BRAZIL MATCHMAKING | SEN SicK',
+      },
+    ],
+  },
+  {
+    username: 'alanzoka',
+    avatar: 'https://yt3.googleusercontent.com/ytc/AGIKgqMcLFqcH7aZuBRihSbFmUk3pCkAulLv7SEgJPzq=s176-c-k-c0x00ffffff-no-rj',
+    videos: [
+      {
+        link: 'https://www.youtube.com/embed/GvpUSw3I66s',
+        title: 'alanzoka jogando Aliens: Dark Descent - #1',
+      },
+      {
+        link: 'https://www.youtube.com/embed/GINuKibeXo0',
+        title: 'alanzoka jogando CS: GO - #47',
+      },
+    ],
+  },
+  {
+    username: 'RonaldoTV',
+    avatar: 'https://yt3.ggpht.com/vhYGgxXhGVUwVI2thDQskSRrMHOzdcAH7fPSEmj_uNkk9S6qFZ8UJz5BNwBLMktNehXBAZJR=s176-c-k-c0x00ffffff-no-rj-mo',
+    videos: [
+      {
+        link: 'https://www.youtube.com/embed/iu7ykZ1JmoM',
+        title: 'RONALDO BRILHANDO NO WARZONE #1 | Cortes RonaldoTV',
+      },
+      {
+        link: 'https://www.youtube.com/embed/QZAc3FUBfx0',
+        title: 'RONALDO BRILHANDO NO WARZONE #2 | Cortes RonaldoTV',
+      },
+    ],
+  },
+  {
+    username: 'Aleksis007',
+    avatar: 'https://yt3.googleusercontent.com/vE1vjc1kD1TmO_y3LckbYoNVuDoFJm80Gcm2oiaXigLo13yYIpD9TCZlsB3CjUnFhu3KLUMK=s176-c-k-c0x00ffffff-no-rj',
+    videos: [
+      {
+        link: 'https://www.youtube.com/embed/Px3E6osQr0o',
+        title: 'Why is this OP? Aphelios Season 13',
+      },
+      {
+        link: 'https://www.youtube.com/embed/7Wk_kz5ST_Y',
+        title: 'The Rank 1 Aphelios Experience | Season 13',
+      },
+    ],
+  },
+]
 export default function Perfil() {
   const router = useRouter()
 
@@ -24,7 +80,7 @@ export default function Perfil() {
   }, [stream, videoRef.current, isStreaming])
 
   const { username } = router.query
-
+  const userData = USERS.find((user) => user.username == username)
   return (
     <Page padding={0}>
       <main className={`flex h-full flex-col items-start relative ${!isStreaming ? 'bg-purple-600' : ''}`}>
@@ -59,11 +115,11 @@ export default function Perfil() {
               <div>
                 <div className="mt-4">
                   <div className="flex items-center gap-4">
-                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/e7224153-007a-4606-9c1b-46ad395e3000-profile_image-70x70.png" alt="" className="w-18 object-cover h-18 rounded-full border-2 border-purple-600" />
+                    <img src={userData?.avatar} alt="" className="w-16 object-cover h-18 rounded-full border-2 border-purple-600" />
                     <div className="font-semibold text-slate-700">
                       <h1 className="hover:underline">
                         <Link href="/perfil/luisss">
-                          luisss
+                          {username}
                         </Link>
                       </h1>
                       <span className="text-gray-500 text-sm">10 Seguidores</span>
@@ -80,18 +136,20 @@ export default function Perfil() {
             </div>
             <div>
               <h2 className="mt-8 my-4 font-bold">Clips</h2>
-              <ul className="flex gap-4">
-
-                <li className=" flex flex-col items-start">
-                  <Image className="aspect-video rounded-lg w-96" src={imageExample} alt="" />
-                  <strong className="my-1">LIVE DE SÁBADO E COM VITÓRIA?</strong>
-                  <small className="text-gray-400">Just chatting</small>
-                </li>
-                <li className=" flex flex-col items-start">
-                  <Image className="aspect-video rounded-lg w-96" src={imageExample} alt="" />
-                  <strong className="my-1">LIVE DE SÁBADO E COM VITÓRIA?</strong>
-                  <small className="text-gray-400">Just chatting</small>
-                </li>
+              <ul className="flex gap-2">
+                {userData?.videos.map((video) => (
+                  <li className=" flex flex-col items-start">
+                    <iframe
+                      src={video.link}
+                      title="YouTube video player"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-100 aspect-video rounded"
+                    />
+                    <strong className="my-1">{video.title}</strong>
+                    <small className="text-gray-400">Just chatting</small>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
