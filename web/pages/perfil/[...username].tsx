@@ -2,13 +2,26 @@
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Page from '@/components/Page';
 import StartLiveStreamModal from '@/components/StartliveStreamModal';
+import useStream from '@/hooks/useStream';
+
+import imageExample from '../../public/example.webp'
 
 export default function Perfil() {
-  const isStreaming = false
-
   const router = useRouter()
+
+  const { isStreaming, stream } = useStream()
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (stream && videoRef.current && isStreaming) {
+      videoRef.current.srcObject = stream;
+      videoRef.current.play();
+    }
+  }, [stream, videoRef.current, isStreaming])
 
   const { username } = router.query
 
@@ -17,14 +30,8 @@ export default function Perfil() {
       <main className={`flex h-full flex-col items-start relative ${!isStreaming ? 'bg-purple-600' : ''}`}>
         {isStreaming ? (
           <>
-            <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="w-full aspect-video absolute "
-            />
-            <div className="bg-zinc-800 z-20 mx-12 my-24 px-8 py-12 rounded w-96">
+            <video muted ref={videoRef} className="w-full aspect-video absolute " />
+            <div className="bg-zinc-800 z-20 mx-12 my-32 px-8 py-12 rounded w-96">
               <span className="bg-red-500 p-2 px-4 rounded font-bold text-slate-100">
                 Ao vivo
               </span>
@@ -73,27 +80,15 @@ export default function Perfil() {
             </div>
             <div>
               <h2 className="mt-8 my-4 font-bold">Clips</h2>
-              <ul className="flex gap-2">
+              <ul className="flex gap-4">
 
                 <li className=" flex flex-col items-start">
-                  <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                    title="YouTube video player"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-100 aspect-video rounded"
-                  />
+                  <Image className="aspect-video rounded-lg w-96" src={imageExample} alt="" />
                   <strong className="my-1">LIVE DE SÁBADO E COM VITÓRIA?</strong>
                   <small className="text-gray-400">Just chatting</small>
                 </li>
                 <li className=" flex flex-col items-start">
-                  <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                    title="YouTube video player"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-100 aspect-video rounded"
-                  />
+                  <Image className="aspect-video rounded-lg w-96" src={imageExample} alt="" />
                   <strong className="my-1">LIVE DE SÁBADO E COM VITÓRIA?</strong>
                   <small className="text-gray-400">Just chatting</small>
                 </li>

@@ -1,12 +1,23 @@
 import Link from 'next/link';
 import Head from 'next/head';
 
+import { useEffect, useRef } from 'react';
 import Chat from '@/components/Chat2';
 import Page from '@/components/Page';
 
 import styles from '../styles/Stream.module.css';
+import useStream from '@/hooks/useStream';
 
 export default function Stream() {
+  const { isStreaming, stream } = useStream()
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (stream && videoRef.current && isStreaming) {
+      videoRef.current.srcObject = stream;
+      videoRef.current.play();
+    }
+  }, [stream, videoRef.current, isStreaming])
   return (
     <>
       <Head>
@@ -15,13 +26,7 @@ export default function Stream() {
       <Page padding={0}>
         <main className={styles.stream}>
           <div className={styles.stream__player}>
-            <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-
+            <video controls muted ref={videoRef} className="w-full aspect-video" />
             <div className={styles.stream__info}>
               <img
                 src="https://static-cdn.jtvnw.net/jtv_user_pictures/e7224153-007a-4606-9c1b-46ad395e3000-profile_image-70x70.png"
