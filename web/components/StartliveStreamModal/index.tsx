@@ -5,7 +5,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  ModalHeader,
   ModalFooter,
   useDisclosure,
   Box,
@@ -14,19 +13,22 @@ import {
 } from '@chakra-ui/react';
 
 import { VideoCamera } from '@phosphor-icons/react'
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import useStream from '@/hooks/useStream';
 
 export default function StartLiveStreamModal() {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const { addStream, stream, startStream } = useStream()
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  function setStream(stream: MediaStream) {
+  useEffect(() => {
     if (stream && videoRef.current) {
       videoRef.current.srcObject = stream;
       videoRef.current.play();
     }
-  }
+  }, [stream, videoRef.current])
 
   async function handleUserWebcam() {
     if (!videoRef.current) return
@@ -34,12 +36,12 @@ export default function StartLiveStreamModal() {
     videoRef.current.srcObject = null;
 
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const newStream = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: { facingMode: 'environment' },
       });
 
-      setStream(stream)
+      addStream(newStream)
     } catch (err) {
       console.log('Web cam não encontrada')
     }
@@ -51,12 +53,17 @@ export default function StartLiveStreamModal() {
     videoRef.current.srcObject = null;
 
     try {
-      const stream = await navigator.mediaDevices.getDisplayMedia()
+      const newStream = await navigator.mediaDevices.getDisplayMedia()
 
-      setStream(stream)
+      addStream(newStream)
     } catch (err) {
       console.log('Nenhuma fonte de mídia foi selecionada encontrada')
     }
+  }
+
+  function handleStartStream() {
+    startStream()
+    onClose()
   }
 
   return (
@@ -76,20 +83,20 @@ export default function StartLiveStreamModal() {
             </Box>
 
             <Box display="flex" gap={3}>
-              <Button w="100%" onClick={() => handleUserWebcam}>Transmitir Câmera</Button>
-              <Button w="100%" onClick={() => handleUserDisplay}>Transmitir Tela</Button>
+              <Button w="100%" onClick={() => handleUserWebcam()}>Transmitir Câmera</Button>
+              <Button w="100%" onClick={() => handleUserDisplay()}>Transmitir Tela</Button>
             </Box>
 
             <Box mt={4} mb={12}>
-              <AspectRatio minW="200px" ratio={16 / 9} bg="red">
-                <video ref={videoRef} />
+              <AspectRatio minW="200px" ratio={16 / 9} bg="blackAlpha.600" borderRadius={10}>
+                <video muted ref={videoRef} />
               </AspectRatio>
             </Box>
 
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="purple" onClick={onClose}>
+            <Button colorScheme="purple" onClick={() => handleStartStream()}>
               Iniciar transmissão
             </Button>
           </ModalFooter>
