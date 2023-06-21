@@ -2,11 +2,9 @@
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 import Page from '@/components/Page';
-import StartLiveStreamModal from '@/components/StartliveStreamModal';
-import useStream from '@/hooks/useStream';
 
 const USERS = [
   {
@@ -69,18 +67,12 @@ const USERS = [
 export default function Perfil() {
   const router = useRouter()
 
-  const { isStreaming, stream } = useStream()
+  const { username } = router.query
+  const userData = username && USERS.find((user) => user.username === username[0])
+
+  const isStreaming = false
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (stream && videoRef.current && isStreaming) {
-      videoRef.current.srcObject = stream;
-      videoRef.current.play();
-    }
-  }, [stream, videoRef.current, isStreaming])
-
-  const { username } = router.query
-  const userData = USERS.find((user) => user.username == username)
   return (
     <Page padding={0}>
       <main className={`flex h-full flex-col items-start relative ${!isStreaming ? 'bg-purple-600' : ''}`}>
@@ -115,7 +107,7 @@ export default function Perfil() {
               <div>
                 <div className="mt-4">
                   <div className="flex items-center gap-4">
-                    <img src={userData?.avatar} alt="" className="w-16 object-cover h-18 rounded-full border-2 border-purple-600" />
+                    <img src={userData && userData?.avatar} alt="" className="w-16 object-cover h-18 rounded-full border-2 border-purple-600" />
                     <div className="font-semibold text-slate-700">
                       <h1 className="hover:underline">
                         <Link href="/perfil/luisss">
@@ -131,20 +123,19 @@ export default function Perfil() {
                 <button title="Seguir luisss" type="button" className="rounded bg-purple-600 text-white px-6 py-2 font-semibold flex gap-2 cursor-pointer">
                   Seguir
                 </button>
-                <StartLiveStreamModal />
               </div>
             </div>
             <div>
               <h2 className="mt-8 my-4 font-bold">Clips</h2>
               <ul className="flex gap-2">
-                {userData?.videos.map((video) => (
+                {userData && userData?.videos.map((video) => (
                   <li className=" flex flex-col items-start">
                     <iframe
                       src={video.link}
                       title="YouTube video player"
                       allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
-                      className="w-100 aspect-video rounded"
+                      className="w-96 aspect-video rounded"
                     />
                     <strong className="my-1">{video.title}</strong>
                     <small className="text-gray-400">Just chatting</small>

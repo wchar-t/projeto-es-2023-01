@@ -88,7 +88,7 @@ export default function StartLiveStreamModal() {
             </Box>
 
             <Box mt={4} mb={12}>
-              <AspectRatio minW="200px" ratio={16 / 9} bg="red">
+              <AspectRatio minW="200px" ratio={16 / 9} bg="blackAlpha.600" borderRadius={10}>
                 <video muted ref={videoRef} />
               </AspectRatio>
             </Box>
@@ -96,7 +96,7 @@ export default function StartLiveStreamModal() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="purple" onClick={handleStartStream}>
+            <Button colorScheme="purple" onClick={() => handleStartStream()}>
               Iniciar transmissão
             </Button>
           </ModalFooter>
