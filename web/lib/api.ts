@@ -27,14 +27,21 @@ type RequestResponse<Data extends Record<string, any>> =
 export const request = async <Data extends Record<string, any>>(
   url: string, data?: object, options?: RequestInit,
 ): Promise<RequestResponse<Data>> => {
+  const headers = options?.headers ? new Headers(options.headers) : new Headers();
   const token = window.localStorage.getItem('token');
+  const serialized = data ? JSON.stringify(data) : null;
+  const method = options?.method ?? (data ? 'POST' : 'GET');
+
+  if (!(data instanceof FormData)) {
+    headers.set('Content-Type', 'application/json');
+  }
+
   const { error, result } = await window.fetch(url, {
     ...options,
-    method: data ? 'POST' : 'GET',
-    body: data ? JSON.stringify(data) : null,
+    method,
+    body: data instanceof FormData ? data : serialized,
     headers: {
-      ...options?.headers,
-      'Content-Type': data ? 'application/json' : 'text/plain;charset=UTF-8',
+      ...headers,
       Authorization: `Bearer ${token}`,
     },
   }).then((e) => e.json());
@@ -79,5 +86,12 @@ export default class Api {
   static logout(): void {
     window.localStorage.removeItem('token');
     window.location.href = '/';
+  }
+
+  static updateProfilePicture(file: File) {
+    const formData = new FormData();
+    formData.append('pp', file);
+
+    return request('/api/@me/avatar', formData, { method: 'PUT' });
   }
 }

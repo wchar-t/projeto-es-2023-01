@@ -3,3 +3,51 @@
   font-weight: 600;
   margin: 40px 0;
 }
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tabs {
+  max-width: 900px;
+  margin-top: 10px;
+}
+
+.box {
+  background-color: var(--bg-color-settings-box-primary);
+  padding: 15px;
+  border: 1px solid var(--bg-color-sidebar-secondary);
+  border-radius: 5px;
+}
+
+.change-pp {
+  display: flex;
+  gap: 15px;
+}
+
+.change-pp img {
+  width: 96px;
+  height: 96px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.change-pp > div{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.muted {
+  color: var(--text-color-muted) !important;
+  font-size: 13px;
+}
