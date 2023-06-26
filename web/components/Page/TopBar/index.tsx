@@ -23,7 +23,7 @@ export default function TopBar() {
     <>
       <nav className={styles.nav}>
         <div className={styles.menu}>
-          <Link href={'/'} className={styles.brand}>
+          <Link href="/" className={styles.brand}>
             <div className={styles.logo}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" />
             </div>
@@ -40,11 +40,11 @@ export default function TopBar() {
               session ? (
                 <Menu>
                   <MenuButton>
-                    <img src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5fa74-defa-11e9-809c-784f43822e80-profile_image-70x70.png" className={styles.avatar} />
+                    <img src={session.picture} className={styles.avatar} />
                   </MenuButton>
                   <MenuList>
                     <div className={styles['dropdown-display-username']}>
-                      <img src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5fa74-defa-11e9-809c-784f43822e80-profile_image-70x70.png" className={styles.avatar} />
+                      <img src={session.picture} className={styles.avatar} />
                       <span>
                         { session.username }
                       </span>
@@ -52,7 +52,7 @@ export default function TopBar() {
                     <MenuDivider />
                     <Link href={`/c/${session.username}`}><MenuItem icon={<Icon name="user" />}>Perfil</MenuItem></Link>
                     <MenuDivider />
-                    <MenuItem icon={<Icon name="cog" />}><Link href="/settings">Configurações</Link></MenuItem>
+                    <Link href="/settings"><MenuItem icon={<Icon name="cog" />}>Configurações</MenuItem></Link>
                     <MenuItem icon={<Icon name="arrow-right-from-bracket" />} onClick={() => Api.logout()}>Logout</MenuItem>
                   </MenuList>
                 </Menu>
