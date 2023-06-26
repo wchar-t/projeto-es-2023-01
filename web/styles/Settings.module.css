@@ -25,6 +25,7 @@
   padding: 15px;
   border: 1px solid var(--bg-color-sidebar-secondary);
   border-radius: 5px;
+  display: flex;
 }
 
 .change-pp {
@@ -50,4 +51,61 @@
 .muted {
   color: var(--text-color-muted) !important;
   font-size: 13px;
+}
+
+.box > div {
+  flex-grow: 1;
+}
+
+.box-label-container {
+  width: 180px;
+  flex-grow: 0 !important;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.display-email {
+  font-weight: 500;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between
+}
+
+.display-email .controls {
+  font-size: 13px;
+}
+
+.display-email .controls button:hover {
+  background-color: var(--bg-color-sidebar-primary);
+  color: var(--text-color);
+}
+
+.display-email .controls button {
+  color: var(--text-color-muted);
+}
+
+.edit-email {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-email input {
+  background-color: transparent;
+  border: 1px solid var(--bg-color-sidebar-secondary);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.edit-email span {
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 5px;
+}
+
+.edit-email input:focus {
+  outline: 4px solid var(--green-100);
 }

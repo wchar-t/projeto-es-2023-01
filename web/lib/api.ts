@@ -32,18 +32,17 @@ export const request = async <Data extends Record<string, any>>(
   const serialized = data ? JSON.stringify(data) : null;
   const method = options?.method ?? (data ? 'POST' : 'GET');
 
-  if (!(data instanceof FormData)) {
+  if (method === 'POST') {
     headers.set('Content-Type', 'application/json');
   }
+
+  headers.set('Authorization', `Bearer ${token}`);
 
   const { error, result } = await window.fetch(url, {
     ...options,
     method,
-    body: data instanceof FormData ? data : serialized,
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    },
+    body: method === 'PUT' ? data as FormData : serialized,
+    headers,
   }).then((e) => e.json());
 
   if (error) {
@@ -93,5 +92,9 @@ export default class Api {
     formData.append('pp', file);
 
     return request('/api/@me/avatar', formData, { method: 'PUT' });
+  }
+
+  static async updateEmail(email: string) {
+    return request('/api/@me/email', { email });
   }
 }
