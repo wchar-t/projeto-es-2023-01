@@ -14,7 +14,8 @@ export default function Home({
   shelves: object[], // rm after demo
 }) {
   window.recommended = streams; // rm after demo
-  window.shelves = shelves;
+  window.shelves = shelves; // rm after demo
+  console.log(window.recommended)
 
   return (
     <Page>

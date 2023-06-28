@@ -11,23 +11,27 @@ export default function Chat({
 }: {
   username: string,
 }) {
+  const contentRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLInputElement>(null);
-  const client = new ChatClient(username);
+  let client: ChatClient | null = null;
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   async function sendMessage() {
     if (!messageRef.current) return;
     const message = messageRef.current.value || '';
 
-    await client.sendMessage(message);
+    await client?.sendMessage(message);
     messageRef.current.value = '';
   }
 
   function onMessage(message: ChatMessage) {
-    setMessages((prev) => [...prev, message]);
+    setMessages((prev) => [...prev, message].slice(-100));
+
+    contentRef.current?.scroll(0, contentRef.current.scrollHeight);
   }
 
   useEffect(() => {
+    client = new ChatClient(username);
     client.onmessage = onMessage;
   }, []);
 
@@ -46,11 +50,11 @@ export default function Chat({
           </div>
         </div>
 
-        <div className={styles.content}>
+        <div className={styles.content} ref={contentRef}>
           {messages.map((message) => (
             <Message
-              key={message.id}
-              color={'#ff0000'}
+              key={message.id + Math.random()}
+              color={message.color || '#ff0000'}
               username={message.author.username}
               message={message.content}
             />

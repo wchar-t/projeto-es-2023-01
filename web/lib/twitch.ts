@@ -48,6 +48,47 @@ const ops = {
       },
     },
   },
+  StreamTagsTrackingChannel: {
+    operationName: 'StreamTagsTrackingChannel',
+    variables: {
+      channel: 'loud_coringa',
+    },
+    extensions: {
+      persistedQuery: {
+        version: 1,
+        sha256Hash: '6aa3851aaaf88c320d514eb173563d430b28ed70fdaaf7eeef6ed4b812f48608',
+      },
+    },
+  },
+  ChannelShell: {
+    operationName: 'ChannelShell',
+    variables: {
+      login: 'loud_coringa',
+    },
+    extensions: {
+      persistedQuery: {
+        version: 1,
+        sha256Hash: '580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe',
+      },
+    },
+  },
+  NielsenContentMetadata: {
+    operationName: 'NielsenContentMetadata',
+    variables: {
+      collectionID: '',
+      isCollectionContent: false,
+      isLiveContent: true,
+      isVODContent: false,
+      login: 'loud_coringa',
+      vodID: '',
+    },
+    extensions: {
+      persistedQuery: {
+        version: 1,
+        sha256Hash: '2dbf505ee929438369e68e72319d1106bb3c142e295332fac157c90638968586',
+      },
+    },
+  },
 };
 
 type names = keyof typeof ops;
@@ -93,6 +134,24 @@ export default class Twitch {
   public static async getShelves(limit = 4) {
     const template = ops.Shelves;
     template.variables.limit = limit;
+    return this.fetch({ operationsModded: [template] }).then((e) => (e.error ? e : e[0].data));
+  }
+
+  public static getStreamTagsTrackingChannel(username: string) {
+    const template = ops.StreamTagsTrackingChannel;
+    template.variables.channel = username;
+    return this.fetch({ operationsModded: [template] }).then((e) => (e.error ? e : e[0].data));
+  }
+
+  public static getChannelShell(username: string) {
+    const template = ops.ChannelShell;
+    template.variables.login = username;
+    return this.fetch({ operationsModded: [template] }).then((e) => (e.error ? e : e[0].data));
+  }
+
+  public static getNielsenContentMetadata(username: string) {
+    const template = ops.NielsenContentMetadata;
+    template.variables.login = username;
     return this.fetch({ operationsModded: [template] }).then((e) => (e.error ? e : e[0].data));
   }
 }

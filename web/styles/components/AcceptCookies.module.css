@@ -9,6 +9,7 @@
     background-color: var(--bg-color-sidebar-secondary);
     border-radius: 5px;
     gap: 25px;
+    z-index: 9;
   }
   
   .wrapper .icon {

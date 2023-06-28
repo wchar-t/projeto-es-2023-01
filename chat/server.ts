@@ -1,5 +1,6 @@
 import WebSocket, { WebSocketServer } from 'ws';
 import { Message, User } from './interfaces';
+import BotFamily from './twitch';
 
 type ops = 'auth' | 'welcome' | 'join' | 'message' | 'error';
 
@@ -46,6 +47,7 @@ export default class Server {
   public port: number;
   public clients: Client[] = [];
   public wss: WebSocketServer;
+  public bots: BotFamily[];
   
   constructor(host: string, port: number) {
     this.host = host;
@@ -54,6 +56,7 @@ export default class Server {
       host: this.host,
       port: this.port,
     });
+    this.bots = [];
 
     this.wss.on('connection', (ws) => this.onConnection(ws));
 
@@ -100,11 +103,17 @@ export default class Server {
         return client.send('error', 'Invalid session', () => this.closeClient(client));
       else
         return client.send('welcome', `Welcome, ${client.user.username}!`);
-    } else if (op === 'join')
+    } else if (op === 'join') {
+      const botsInChannel = this.bots.filter(e => e.channel === d);
+
+      if (botsInChannel.length == 0) this.bots.push(new BotFamily(this, d));
+      
       client.join(d);
+    }
     else if (op === 'message') {
       const message: Message = {
         id: `${(new Date().getTime())}_${client.user.username}`,
+        color: d.color || null,
         author: client.user,
         content: d.content,
         channel: client.channel,
@@ -119,6 +128,17 @@ export default class Server {
     
     for (const client of this.clients) {
       if (client.channel === message.channel && client.channel /* && client.user.id !== message.author.id*/) {
+        client.send('message', message);
+      }
+    }
+  }
+
+  async broadcastTo(channel: string, message: Message) {
+    if (!message.content)
+      return;
+      
+    for (const client of this.clients) {
+      if (client.channel === channel && client.channel /* && client.user.id !== message.author.id*/) {
         client.send('message', message);
       }
     }

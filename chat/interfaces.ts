@@ -10,6 +10,7 @@ export interface User {
 export interface Message {
   id: string, // timestamp + user
   author: User,
+  color?: string,
   content: string,
   channel: string,
 }

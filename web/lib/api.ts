@@ -72,7 +72,7 @@ export default class Api {
     });
   }
 
-  static setToken(token?: string) {
+  static setToken(token: string | null = null) {
     window.localStorage.setItem('token', token ?? '');
   }
 

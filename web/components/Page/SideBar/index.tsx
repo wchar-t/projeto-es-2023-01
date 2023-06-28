@@ -13,7 +13,7 @@ export default function SideBar() {
         <SideBarStreamer username="SicK_cs" name="SicK_cs" tag="Valorant" viewers={130} image="https://static-cdn.jtvnw.net/jtv_user_pictures/5c4cd414-101a-422c-ad1b-11d2d9b31246-profile_image-70x70.png" />
         {
           // rm after demo
-          recommended.filter((stream:any) => stream.content).map((stream: any) => (
+          recommended.filter((stream: any) => stream.content).map((stream: any) => (
             <SideBarStreamer
               key={stream.content.id}
               username={stream.user.login}

@@ -43,13 +43,19 @@
 }
 
 .content {
-  display: flex;
+  display: block;
   flex-direction: column;
   align-content: flex-end;
   justify-content: flex-end;
   flex-grow: 1;
   padding: 0px 15px;
   gap: 5px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.message {
+  margin-bottom: 5px;
 }
 
 .control {
@@ -97,4 +103,8 @@
 
 .message span {
   margin-left: 5px;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
