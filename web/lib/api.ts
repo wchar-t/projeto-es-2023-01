@@ -27,16 +27,22 @@ type RequestResponse<Data extends Record<string, any>> =
 export const request = async <Data extends Record<string, any>>(
   url: string, data?: object, options?: RequestInit,
 ): Promise<RequestResponse<Data>> => {
+  const headers = options?.headers ? new Headers(options.headers) : new Headers();
   const token = window.localStorage.getItem('token');
+  const serialized = data ? JSON.stringify(data) : null;
+  const method = options?.method ?? (data ? 'POST' : 'GET');
+
+  if (method === 'POST') {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  headers.set('Authorization', `Bearer ${token}`);
+
   const { error, result } = await window.fetch(url, {
     ...options,
-    method: data ? 'POST' : 'GET',
-    body: data ? JSON.stringify(data) : null,
-    headers: {
-      ...options?.headers,
-      'Content-Type': data ? 'application/json' : 'text/plain;charset=UTF-8',
-      Authorization: `Bearer ${token}`,
-    },
+    method,
+    body: method === 'PUT' ? data as FormData : serialized,
+    headers,
   }).then((e) => e.json());
 
   if (error) {
@@ -66,10 +72,17 @@ export default class Api {
     });
   }
 
+  static setToken(token?: string) {
+    window.localStorage.setItem('token', token ?? '');
+  }
+
   /* private routes */
 
-  static async getSession(): Promise<RequestResponse<Session>> {
-    return request<Session>('/api/@me');
+  static async getSession(): Promise<RequestResponse<{
+    session: Session,
+    jwt: string,
+  }>> {
+    return request<{ session: Session, jwt: string }>('/api/@me');
   }
 
   static getToken(): string | null {
@@ -79,5 +92,24 @@ export default class Api {
   static logout(): void {
     window.localStorage.removeItem('token');
     window.location.href = '/';
+  }
+
+  static updateProfilePicture(file: File) {
+    const formData = new FormData();
+    formData.append('pp', file);
+
+    return request('/api/@me/avatar', formData, { method: 'PUT' });
+  }
+
+  static async updateEmail(email: string) {
+    return request('/api/@me/email', { email });
+  }
+
+  static async updateUsername(username: string) {
+    return request('/api/@me/username', { username });
+  }
+
+  static async updatePassword(password: string, repassword: string) {
+    return request('/api/@me/password', { password, repassword });
   }
 }

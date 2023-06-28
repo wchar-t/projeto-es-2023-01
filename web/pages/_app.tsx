@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import theme from '@/theme';
 import Api from '@/lib/api';
+import StreamProvider from '@/context/streamContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +17,8 @@ export default function App({ Component, pageProps }: AppProps) {
     (async () => {
       const { error, result } = await Api.getSession();
 
-      Api.session = !error ? result : null;
+      Api.session = !error ? result.session : null;
+      Api.setToken(!error ? result.jwt : null);
       setLoaded(true);
     })();
   }, []);
@@ -27,9 +29,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ChakraProvider theme={theme}>
-      <main className={inter.className}>
-        <Component {...pageProps} />
-      </main>
+      <StreamProvider>
+        <main className={inter.className}>
+          <Component {...pageProps} />
+        </main>
+      </StreamProvider>
     </ChakraProvider>
   );
 }

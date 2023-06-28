@@ -11,6 +11,8 @@ export function simplifyNumber(num: number) {
   return simplifiedNumber.toString().replace('.', ',') + suffixes[suffixGroups];
 }
 
-export function dummy() {
-  return 'dummy';
+export function censoredEmail(email: string) {
+  const [username, domain] = email.split('@');
+
+  return `${username[0]}****@${domain[0]}***.${domain.split('.')[1]}`;
 }

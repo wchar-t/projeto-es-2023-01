@@ -40,7 +40,7 @@ export default function LoginRegisterModal({ mode = 'login', isOpen, onClose }: 
       return;
     }
 
-    window.localStorage.setItem('token', result.jwt);
+    Api.setToken(result.jwt);
     window.location.reload();
   }
 
