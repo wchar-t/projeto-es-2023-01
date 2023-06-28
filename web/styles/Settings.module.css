@@ -26,6 +26,7 @@
   border: 1px solid var(--bg-color-sidebar-secondary);
   border-radius: 5px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .change-pp {
@@ -43,7 +44,7 @@
 .change-pp > div{
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   align-items: flex-start;
   justify-content: center;
 }
@@ -91,7 +92,7 @@
   gap: 10px;
 }
 
-.edit-email input {
+.box input {
   background-color: transparent;
   border: 1px solid var(--bg-color-sidebar-secondary);
   border-radius: 5px;
@@ -100,12 +101,87 @@
   width: 100%;
 }
 
+.box input:disabled {
+  background: rgba(173, 173, 184, 0.22); /* rev theme */
+  color: rgb(239 239 241 / 63%); /* rev theme */
+}
+
 .edit-email span {
   font-size: 13px;
   font-weight: 500;
   padding-left: 5px;
 }
 
-.edit-email input:focus {
+.box input:focus {
   outline: 4px solid var(--green-100);
+}
+
+.tabs div[class*="tab-panels"] div[role="tabpanel"] {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+}
+
+.input-group > input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+  z-index: 1;
+}
+
+.input-group > input:focus {
+  border-radius: 5px;
+}
+
+.input-group > button, .box-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  background-color: #313133; /* rev theme */
+  font-size: 13px;
+  transition: .2s all;
+  font-weight: 400;
+}
+
+.input-group > button {
+  padding: 0 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.input-group > button:hover, .box-button:hover {
+  background-color: #2c2c2e; /* rev theme */
+}
+
+.input-group > button:focus, .box-button:focus {
+  background-color: #262627; /* rev theme */
+}
+
+.box-footer {
+  flex-basis: 100%;
+  background: #1f1f1f; /* rev theme */
+  margin: 20px -15px -15px -15px;
+  z-index: 1;
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 13px;
+}
+
+.input-error {
+  border-radius: 5px !important;
+  outline: 4px solid #ff3b42; /* rev theme */
 }

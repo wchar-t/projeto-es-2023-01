@@ -17,7 +17,8 @@ export default function App({ Component, pageProps }: AppProps) {
     (async () => {
       const { error, result } = await Api.getSession();
 
-      Api.session = !error ? result : null;
+      Api.session = !error ? result.session : null;
+      Api.setToken(!error ? result.jwt : null);
       setLoaded(true);
     })();
   }, []);
