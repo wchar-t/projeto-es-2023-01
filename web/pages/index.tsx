@@ -8,14 +8,17 @@ declare const window: any; // rm after demo
 
 export default function Home({
   streams, // rm after demo
+  shelves, // rm after demo
 }: {
   streams: object[], // rm after demo
+  shelves: object[], // rm after demo
 }) {
   window.recommended = streams; // rm after demo
+  window.shelves = shelves;
 
   return (
     <Page>
-      <div className={styles.section}>
+      <div className={styles.section} style={{ display: 'none' }}>
         <div className={styles['section-title']}>
           Canais de
           <Link href="/"> VALORANT </Link>
@@ -61,7 +64,7 @@ export default function Home({
         </div>
       </div>
 
-      <div className={styles.section}>
+      <div className={styles.section} style={{ display: 'none' }}>
         <div className={styles['section-title']}>
           Canais de
           <Link href="/"> Rocket League </Link>
@@ -107,7 +110,7 @@ export default function Home({
         </div>
       </div>
 
-      <div className={styles.section}>
+      <div className={styles.section} style={{ display: 'none' }}>
         <div className={styles['section-title']}>
           Em destaque
         </div>
@@ -150,6 +153,36 @@ export default function Home({
           />
         </div>
       </div>
+
+      {
+        // rm after demo
+        window.shelves.map((e: any) => (
+          <div className={styles.section}>
+            <div className={styles['section-title']}>
+              {e.title.localizedTitleTokens.map((token: any) => (
+                token.node.location !== 'NO_LINK'
+                  ? <Link href="/"> {token.node.text || token.node.displayName || e.title.fallbackLocalizedTitle} </Link>
+                  : token.node.text || token.node.displayName || e.title.fallbackLocalizedTitle
+              ))}
+            </div>
+            <div className={styles['section-content']}>
+              {
+                e.content.edges.slice(0, 4).filter((x: any) => x.node?.broadcaster).map((x: any) => (
+                  <LiveStreamItem
+                    title={x.node.broadcaster.broadcastSettings.title}
+                    username={x.node.broadcaster.login}
+                    name={x.node.broadcaster.displayName}
+                    profilePicture={x.node.broadcaster.profileImageURL}
+                    viewers={22500}
+                    thumbnail={x.node.previewImageURL}
+                    tags={['VALORANT']}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        ))
+      }
     </Page>
   );
 }
@@ -157,10 +190,19 @@ export default function Home({
 // rm after demo
 export async function getServerSideProps() {
   const res = await Twitch.fetch({ operations: ['PersonalSections'] });
-  const props = { streams: [] };
+  const resShelves = await Twitch.getShelves(50);
+  const props = { streams: [], shelves: [] };
 
   try {
     props.streams = res[0].data.personalSections[0].items;
+  } catch (x) {
+    // nothing
+  }
+
+  try {
+    props.shelves = resShelves.shelves.edges
+      .map((e: any) => e.node)
+      .filter((e: any) => e.content.edges[0].node.type === 'live');
   } catch (x) {
     // nothing
   }

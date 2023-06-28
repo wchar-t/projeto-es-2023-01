@@ -31,6 +31,23 @@ const ops = {
       playerType: 'site',
     },
   },
+  Shelves: {
+    operationName: 'Shelves',
+    variables: {
+      context: { },
+      limit: 4,
+      requestID: '',
+      platform: 'web',
+      verbose: false,
+      itemsPerRow: 10,
+    },
+    extensions: {
+      persistedQuery: {
+        version: 1,
+        sha256Hash: 'b6f0c72c747457b73107f6aa00bd6a5bb294539d2de5398646e949c863662543',
+      },
+    },
+  },
 };
 
 type names = keyof typeof ops;
@@ -48,9 +65,10 @@ export default class Twitch {
     'Client-Version': this.clientVersion,
     'X-Device-Id': this.xDeviceId,
     'User-Agent': this.UA,
+    'Accept-Language': 'pt-BR',
   };
 
-  public static fetch({
+  public static async fetch({
     operations,
     operationsModded,
   }: {
@@ -66,9 +84,15 @@ export default class Twitch {
     }).then((e) => e.json());
   }
 
-  public static getStream(username: string) {
+  public static async getStream(username: string) {
     const template = ops.PlaybackAccessToken_Template;
     template.variables.login = username;
-    return this.fetch({ operationsModded: [template] }).then((e) => e[0].data);
+    return this.fetch({ operationsModded: [template] }).then((e) => (e.error ? e : e[0].data));
+  }
+
+  public static async getShelves(limit = 4) {
+    const template = ops.Shelves;
+    template.variables.limit = limit;
+    return this.fetch({ operationsModded: [template] }).then((e) => (e.error ? e : e[0].data));
   }
 }

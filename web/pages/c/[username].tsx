@@ -39,7 +39,12 @@ export default function Channel({
       height: '100%',
       aspectratio: '16:9',
       autostart: true,
+      autoplay: true,
     });
+
+    setTimeout(() => {
+      jwplayer(document.querySelector(`.${styles.video} > div`)).play();
+    }, 200);
   }, []);
 
   return (
