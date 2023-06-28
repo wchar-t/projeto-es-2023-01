@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  username  String    @unique
+  email     String    @unique
+  password  String
+  bio       String?
+  picture   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  streams   Stream[]
+}
+
+model Stream {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @unique @db.ObjectId @map("_userId")
+  user      User       @relation(fields: [userId], references: [id])
+  title     String
+  status    String
+  viewers   Int
+  startedAt DateTime   @default(now())
+  endedAt   DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  tags      String[]
+}
+
+model Tag {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String @unique
+}

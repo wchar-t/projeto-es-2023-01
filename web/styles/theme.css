@@ -1,0 +1,35 @@
+/* format: --{state?}-{text/bg/border/shadow}-{color?/font?}-{element}-{primary/secondary/tertiary/?} */
+/* format for colors: --{color}--{level} */
+
+:root {
+  --bg-color-primary: #0e0e10;
+
+  --text-color: #fbfbfb;
+  --text-color-muted: #adadad;
+
+  --bg-color-topbar-primary: #18181b;
+
+  --bg-color-sidebar-primary: #1f1f23;
+  --bg-color-sidebar-secondary: #2a2a2d;
+
+  --green-100: #009b3a;
+
+  --bg-color-chat-primary: #1e1e21;
+
+  --bg-color-bio-primary: #1b1b1f;
+
+  --bg-color-chat-button-primary: #323235;
+
+  --bg-color-settings-box-primary: #181818;
+
+  --primary-50: #FAF5FF;
+  --primary-100: #E9D8FD;
+  --primary-200: #D6BCFA;
+  --primary-300: #B794F4;
+  --primary-400: #9F7AEA;
+  --primary-500: #805AD5;
+  --primary-600: #6B46C1;
+  --primary-700: #553C9A;
+  --primary-800: #44337A;
+  --primary-900: #322659;
+}

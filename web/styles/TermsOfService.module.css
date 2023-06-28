@@ -1,0 +1,18 @@
+.typeset h2 {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 3rem;
+    margin-bottom: 2rem;
+}
+
+.typeset h4 {
+    font-size: 20px;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+}
+
+.typeset p {
+    font-size: 15px;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+}
