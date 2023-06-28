@@ -72,10 +72,17 @@ export default class Api {
     });
   }
 
+  static setToken(token?: string) {
+    window.localStorage.setItem('token', token ?? '');
+  }
+
   /* private routes */
 
-  static async getSession(): Promise<RequestResponse<Session>> {
-    return request<Session>('/api/@me');
+  static async getSession(): Promise<RequestResponse<{
+    session: Session,
+    jwt: string,
+  }>> {
+    return request<{ session: Session, jwt: string }>('/api/@me');
   }
 
   static getToken(): string | null {
@@ -96,5 +103,9 @@ export default class Api {
 
   static async updateEmail(email: string) {
     return request('/api/@me/email', { email });
+  }
+
+  static async updateUsername(username: string) {
+    return request('/api/@me/username', { username });
   }
 }

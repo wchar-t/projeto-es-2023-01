@@ -1,7 +1,7 @@
 import { PatriotasApiRequest } from '@/interfaces/server/request';
 import { PatriotasApiResponse } from '@/interfaces/server/response';
 import Session from '@/interfaces/shared/session';
-import withSession from '@/middlewares/session';
+import withSession, { encrypt as encryptJwt } from '@/middlewares/session';
 import prisma from '@/schema/client';
 
 async function handler(req: PatriotasApiRequest, res: PatriotasApiResponse) {
@@ -24,7 +24,9 @@ async function handler(req: PatriotasApiRequest, res: PatriotasApiResponse) {
     createdAt: doc.createdAt,
   };
 
-  return res.status(200).json({ error: false, result: session });
+  const jwt = encryptJwt(session);
+
+  return res.status(200).json({ error: false, result: { session, jwt } });
 }
 
 export default withSession(handler);

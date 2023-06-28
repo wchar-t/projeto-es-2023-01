@@ -14,14 +14,10 @@ export default function Settings() {
   const ppRef = useRef<HTMLInputElement>(null);
   const newEmailRef = useRef<HTMLInputElement>(null);
   const newReEmailRef = useRef<HTMLInputElement>(null);
+  const newUserRef = useRef<HTMLInputElement>(null);
   const [isEmailVisible, setIsEmailVisible] = useState<boolean>(false);
   const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!Api.session) {
-      window.location.href = '/';
-    }
-  }, []);
+  const [isUserEditing, setIsUserEditing] = useState<boolean>(false);
 
   if (!Api.session) {
     return <div> </div>;
@@ -45,6 +41,43 @@ export default function Settings() {
     window.location.reload();
   }
 
+  async function onUserSave() {
+    const newUser = newUserRef.current?.value;
+
+    if (!newUser || !isUserEditing) return;
+
+    const { error } = await Api.updateUsername(newUser);
+
+    if (error) {
+      newUserRef.current?.classList.add(styles['input-error']);
+    } else {
+      window.location.reload();
+    }
+  }
+
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  function onInputKeyPress(e: KeyboardEvent) {
+    (e.currentTarget as HTMLInputElement).classList.remove(styles['input-error']);
+  }
+
+  useEffect(() => {
+    if (!Api.session) {
+      window.location.href = '/';
+    }
+
+    const inputs = document.querySelectorAll<HTMLInputElement>(`.${styles.tabs} input`);
+
+    inputs.forEach((input: HTMLInputElement) => {
+      input.addEventListener('keypress', onInputKeyPress)
+    });
+
+    return () => {
+      inputs.forEach((input: HTMLInputElement) => {
+        input.removeEventListener('keypress', onInputKeyPress)
+      });
+    }
+  }, []);
+
   return (
     <Page>
       <h1 className={styles.settings}>
@@ -66,8 +99,29 @@ export default function Settings() {
                   <img src={Api.session.picture} />
                   <div>
                     <input type="file" ref={ppRef} onChange={onPPChange} style={{ display: 'none' }} />
-                    <Button size="sm" colorScheme="facebook" onClick={() => ppRef.current?.click()}>Adicionar uma foto de perfil</Button>
+                    <Button size="sm" colorScheme="none" className={styles['box-button']} onClick={() => ppRef.current?.click()}>Adicionar uma foto de perfil</Button>
                     <div className={styles.muted}>A imagem pode estar em PNG, GIF, JPG</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <h2>Configurações de Perfil</h2>
+                <div className={`${styles.box} ${styles['change-user']}`}>
+                  <div className={styles['box-label-container']}>
+                    Usuário
+                  </div>
+                  <div className={styles['box-content']}>
+                    <div className={styles['input-group']}>
+                      <input disabled={!isUserEditing} type="text" defaultValue={Api.session.username} ref={newUserRef} />
+                      <button type="button" onClick={() => setIsUserEditing(!isUserEditing)}>
+                        <Icon name="pencil" />
+                      </button>
+                    </div>
+                    <div className={styles.muted}>Você pode editar seu usuário</div>
+                  </div>
+                  <div className={styles['box-footer']}>
+                    <Button size="sm" colorScheme="none" className={styles['box-button']} onClick={() => onUserSave()}>Enviar</Button>
                   </div>
                 </div>
               </div>
