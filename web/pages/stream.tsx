@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useEffect, useRef } from 'react';
 import Chat from '@/components/Chat2';
 import Page from '@/components/Page';
+import CountdownVideo from '@/components/CountdownVideo';
 
 import styles from '../styles/Stream.module.css';
 import useStream from '@/hooks/useStream';
@@ -47,6 +48,8 @@ export default function Stream() {
                   <li>NextJs</li>
                 </ul>
               </div>
+              
+              <CountdownVideo/>
             </div>
           </div>
           <Chat />
