@@ -37,11 +37,11 @@
 .change-pp img {
   width: 96px;
   height: 96px;
-  border-radius: 5px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
-.change-pp > div{
+.change-pp > div {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -86,10 +86,10 @@
 }
 
 .edit-email {
-  padding-bottom: 10px;
+  padding-bottom: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .box input {
@@ -125,7 +125,7 @@
 .box-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .input-group {
@@ -184,4 +184,11 @@
 .input-error {
   border-radius: 5px !important;
   outline: 4px solid #ff3b42; /* rev theme */
+}
+
+.change-password .box-content > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-end
 }
