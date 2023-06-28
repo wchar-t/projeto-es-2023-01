@@ -108,4 +108,8 @@ export default class Api {
   static async updateUsername(username: string) {
     return request('/api/@me/username', { username });
   }
+
+  static async updatePassword(password: string, repassword: string) {
+    return request('/api/@me/password', { password, repassword });
+  }
 }

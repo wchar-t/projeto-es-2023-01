@@ -15,9 +15,12 @@ export default function Settings() {
   const newEmailRef = useRef<HTMLInputElement>(null);
   const newReEmailRef = useRef<HTMLInputElement>(null);
   const newUserRef = useRef<HTMLInputElement>(null);
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const newRePasswordRef = useRef<HTMLInputElement>(null);
   const [isEmailVisible, setIsEmailVisible] = useState<boolean>(false);
   const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
   const [isUserEditing, setIsUserEditing] = useState<boolean>(false);
+  const [isPasswordEditing, setIsPasswordEditing] = useState<boolean>(false);
 
   if (!Api.session) {
     return <div> </div>;
@@ -50,6 +53,22 @@ export default function Settings() {
 
     if (error) {
       newUserRef.current?.classList.add(styles['input-error']);
+    } else {
+      window.location.reload();
+    }
+  }
+
+  async function onPasswordSave() {
+    const newPassword = newPasswordRef.current?.value;
+    const newRePassword = newRePasswordRef.current?.value;
+
+    if (!newPassword || !newRePassword || !isPasswordEditing) return;
+
+    const { error } = await Api.updatePassword(newPassword, newRePassword);
+
+    if (error) {
+      newPasswordRef.current?.classList.add(styles['input-error']);
+      newRePasswordRef.current?.classList.add(styles['input-error']);
     } else {
       window.location.reload();
     }
@@ -166,6 +185,35 @@ export default function Settings() {
                         )
                     }
                     <div className={styles.muted}>Este e-mail será vinculado à sua conta</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <h2>Proteção</h2>
+                <div className={`${styles.box} ${styles['change-password']}`}>
+                  <div className={styles['box-label-container']}>
+                    Senha
+                  </div>
+                  <div className={styles['box-content']}>
+                    <div>
+                      <input disabled={!isPasswordEditing} type="text" ref={newPasswordRef} placeholder="Digite a nova senha" />
+                      <input disabled={!isPasswordEditing} type="text" ref={newRePasswordRef} placeholder="Digite novamente a nova senha" />
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                    >
+                      <div className={styles.muted}>Aumente sua segurança com uma senha forte</div>
+                      <Button size="sm" colorScheme="none" className={styles['box-button']} onClick={() => setIsPasswordEditing(!isPasswordEditing)}>
+                        { !isPasswordEditing ? 'Editar' : 'Cancelar' }
+                      </Button>
+                    </div>
+                  </div>
+                  <div className={styles['box-footer']}>
+                    <Button size="sm" colorScheme="none" className={styles['box-button']} onClick={() => onPasswordSave()}>Enviar</Button>
                   </div>
                 </div>
               </div>
